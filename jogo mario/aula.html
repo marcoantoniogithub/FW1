@@ -1,0 +1,114 @@
+<!-- Tarefas a serem realizadas até às 20h30
+1) Comentar todas as funcoes (criar um cabecalho contendo o padrao: Objetivo, Parametros, Exemplo de chamada)
+2) Criar uma funcao para exibir um fundo diferente toda vez que a página for carregada. A imagem deve ocupar o viewport do navegador
+3) Criar o placar do jogo (localizado no canto superior direito), contendo a pontuação + imagem do cogumelo
+4) Cair um novo cogumelo assim que o cogumelo anterior tocar o solo
+5) Colocar um botao no centro da tela para iniciar o jogo + opcao para selecionar jogador (mario e luigi) + nível de dificuldade (3 níveis relacionados a velocidade)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{margin:0px;}
+        body {
+            background-image: url(fundo1.png);
+        }
+        #placar {
+            text-align: right;
+        }
+        #numeroPlacar {
+            font-size: 35px;
+            color:aliceblue;
+        }
+    </style>
+    <script src="funcoes.js"></script>
+    <script>
+        //function sortearNro, a função gerará um numero aleatorio entre 0 e o numero inserido, insira o maior numero a ser gerado , EX: sortearNro(4) o resultado sera um numero de 0 ate 4 
+         function sortearNro(x) {
+            return parseInt(Math.random()*x);
+        }
+        //function iniciarJogo inicia o jogo posicionando o mario e o cogumelo, não tem parametros, EX: iniciarJogo()
+        function iniciarJogo(){
+            //ponto de onde o cogumelo vai começar
+            ponto1 = {x:0, y:0}
+            //ponto onde o cogumelo vai parar
+            ponto2 = {x:0, y:0}
+            larguraImg = document.getElementById("cogumelo").clientWidth;
+            // Sorteio da coordenada do primeiro ponto
+            ponto1.x = sortearNro(window.innerWidth-larguraImg);
+            // Sorteio da coordenada do segundo ponto
+            ponto2.x = sortearNro(window.innerWidth-larguraImg);
+            ponto2.y = window.innerHeight - document.getElementById("cogumelo").clientHeight;
+            //calcula o coeficiente angular da reta onde o cogumelo vai se mover
+            m = getCoefAngular(ponto1, ponto2)
+            //calcula o coeficiente linear da reta onde o cogumelo vai se mover
+            k = getCoefLinear(ponto1, m);
+            //habilita a movimentação do personagem na tela
+            habilitaMovimentoTeclado("mario",15);
+            //posiciona o objeto mario na cena
+            posicionarObj("mario",
+                          sortearNro(window.innerWidth-document.getElementById("mario").clientWidth),
+                          window.innerHeight - document.getElementById("mario").clientHeight);
+            //faz o cogumelo se movimentar nos pontos definidos
+            voar(ponto1.y, ponto2.y, m, k);
+            planoDefundo();
+        }
+        //function voar faz um objeto se movimentar em uma reta, y_inicial = onde o objeto começara y_final= onde ele vai chegar m = angulo que o objeto vai se movimenta k = onde o objeto esta no eixo y da reta, EX:voar(y_inicial, y_final, m, k)
+        function voar(y_inicial, y_final, m, k) {
+            if (y_inicial < y_final) {
+                y_inicial =  y_inicial + 2;
+                x_atual = (y_inicial - k)/m;
+                posicionarObj("cogumelo", x_atual, y_inicial);
+                setTimeout(voar, 1, y_inicial, y_final, m, k);
+            } else {
+                cairCogumelo();
+            }
+        }
+        //function getCoefAngular calcula o coeficiente angular de uma reta, ponto1= ponto incial da reta ponto2= ponto final da reta, EX: getCoefAngular(ponto1, ponto2)
+        function getCoefAngular(ponto1, ponto2) {
+            return (ponto2.y - ponto1.y)/(ponto2.x -ponto1.x);  
+        }
+        //function getCoefLinear calcula o coeficiente linear de uma reta, ponto= ponto inicial, m = coeficiente angular, getCoefLinear(ponto1, m), EX: getCoefLinear(ponto1, m)
+        function getCoefLinear (ponto, m) {
+            return ponto.y - m*ponto.x;
+        }
+        //function posicionarObj posiciona um objeto na tela , idCampo= id do objeto que deseja posicionar, x= posiciona o objeto em relaçao ao topo da pagina, y= posiciona o objeto em relaçao ao lado direto da tela, EX:posicionarObj("mario",sortearNro(window.innerWidth-document.getElementById("mario").clientWidth), window.innerHeight - document.getElementById("mario").clientHeight)
+        function posicionarObj(idCampo, x, y) {
+            document.getElementById(idCampo).style.position = "absolute";        
+            document.getElementById(idCampo).style.top = y+"px"; 
+            document.getElementById(idCampo).style.left = x+"px";     
+        }
+        //function planoDefundo colocar uma imagem de background na tela aleatoriamente, não tem, planoDefundo()
+        function planoDefundo(){
+            var numero = sortearNro(5)+1;
+            document.getElementById('fundo').style.backgroundImage = "url(fundo"+numero+".png)";
+        }
+        function cairCogumelo(){
+            ponto1.x = sortearNro(window.innerWidth-larguraImg);
+            ponto2.y = window.innerHeight - document.getElementById("cogumelo").clientHeight;
+            m = getCoefAngular(ponto1, ponto2)
+            k = getCoefLinear(ponto1, m);
+            voar(ponto1.y, ponto2.y, m, k);
+        }
+    </script>
+</head>
+<body id="fundo" onload="iniciarJogo()">
+    <div id=placar> <span id="numeroPlacar">0</span> <img src="cogumelo.gif" style="width: 2.0%" alt=""></div>
+    <img id="cogumelo" src="cogumelo.gif" style="width: 2.2%" alt="">
+    <img id="mario" src="marioRight.gif" style="width: 5%" alt="">
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

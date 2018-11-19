@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            background-image: url(fundo1.png);
+        }
+        .alinhamento {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .box {
+            background-color: rgba(230,230,230,0.4);
+            width:30%;
+            margin:1%;
+        }
+        .buttonDificuldade{
+            padding:4%;
+            margin:3%;
+        }
+        .buttonDificuldade:hover {
+            background-color: rgba(230,230,230,0.6);
+        }
+        .personagem{
+            padding:4%;
+            margin:3%;
+            width:40%;
+        }
+        .personagem:hover {
+            background-color: rgba(230,230,230,0.6);
+        }
+        .boxPersonagem {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+    <script>
+        function mudarCor(x){
+            if( x>0 && x<4){
+                for(i = 1; i<4;i++){
+                    if(document.getElementById(i).style.backgroundColor == "rgba(0, 0, 0, 0.5)"){
+                        document.getElementById(i).style.backgroundColor="rgba(230,230,230,0.6)"
+                    }
+                }
+            } else {
+                for(i = 1; i<3;i++){
+                    if(document.getElementById("p"+i).style.backgroundColor == "rgba(0, 0, 0, 0.5)"){
+                        document.getElementById("p"+i).style.backgroundColor="rgba(230,230,230,0.6)"
+                    }
+                }
+            }
+            document.getElementById(x).style.backgroundColor = "rgba(0,0,0,0.5)";
+        }
+    </script>
+    <meta charset="UTF-8">
+    <title>Tela inicial</title>
+</head>
+<body>
+   <div class="alinhamento">
+        <div class="box">
+            <div onclick="mudarCor('1')" class="buttonDificuldade" id="1">FACIL</div>
+            <div onclick="mudarCor('2')" class="buttonDificuldade" id="2">MEDIO</div>
+            <div onclick="mudarCor('3')" class="buttonDificuldade" id="3">DIFICIL</div>
+        </div>
+        <div class="box boxPersonagem">
+            <div onclick="mudarCor('p1')" class="personagem" id="p1"><img src="marioRight.gif" style="width: 50%" alt=""></div>
+            <div onclick="mudarCor('p2')" class="personagem" id="p2"><img src="luigiDireita_final.gif" style="width: 40%" alt=""></div>
+        </div>
+        <div class="box">
+            <div class="buttonDificuldade">INICIAR JOGO</div>
+        </div>
+   </div>
+</body>
+</html>
