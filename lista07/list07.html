@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    .alignerPrincipal{
+      margin: 0 auto;
+      width: 400px;
+    }
+    input[type="text"]{
+      width: 260px;
+      height: 50px;
+      font-size: 60px;
+    }
+    tr, td {
+      text-align: center;
+    }
+    button{
+      font-size: 18px;
+      width: 50px;
+      height: 50px;
+      border: none;
+    }
+    .btnsOperacoes{
+      width: 50px;
+      border: none;
+    }
+  </style>
+  <script type="text/javascript" src="Lista07.js"></script>
+  <script>
+  calc1 = new Calculadora();
+  var operador = "";
+  var limpar = false;
+  function pegar(numero){
+    if(limpar == true){
+      document.getElementById("txtResultado").value= "";
+      limpar = false;
+    }
+    if(document.getElementById("txtResultado").value.length < 8){
+      document.getElementById("txtResultado").value += numero;
+    }
+  }
+  function c(){
+    location.reload();
+  }
+  function ce(){
+    var visor = document.getElementById("txtResultado").value;
+    document.getElementById("txtResultado").value = visor.substr(document.getElementById("txtResultado").value.length);
+  }
+  function backspace(){
+    var visor = document.getElementById("txtResultado").value;
+    document.getElementById("txtResultado").value = visor.substr(0,document.getElementById("txtResultado").value.length-1);
+  }
+  function operacao(elemento){
+    if(limpar == true){
+      document.getElementById("txtResultado").value = "";
+      limpar = false;
+    }
+    switch(elemento){
+      case'+':
+      case'-':
+      case'/':
+      case'*':
+        if(operador == ""){
+            operador = elemento;
+        }
+        if(calc1.operando1 == ""){
+          calc1.operando1 = (document.getElementById("txtResultado").value);
+          operador = elemento;
+          document.getElementById("txtResultado").value = "";
+        } 
+        else {
+          calc1.operando2 = operador + document.getElementById("txtResultado").value;
+          operador = elemento;
+          calc1.operando1 = calc1.somar();
+          document.getElementById("txtResultado").value = calc1.operando1;
+          limpar = true;
+        }
+
+      break;
+        case'div':
+        if(calc1.operando1 == ""){
+          calc1.operando1 = (document.getElementById("txtResultado").value);
+          operador = "div";
+          document.getElementById("txtResultado").value = "";
+        } 
+        else {
+          calc1.operando2 = "/" + document.getElementById("txtResultado").value;
+          operador = elemento;
+          calc1.operando1 = calc1.somar();
+          document.getElementById("txtResultado").value = Math.floor(calc1.operando1);
+          limpar = true;
+        }
+      break;
+      case'sqrt':
+        calc1.operando1 = document.getElementById("txtResultado").value;
+        calc1.operando1 = calc1.raiz();
+        document.getElementById("txtResultado").value = calc1.operando1;
+        limpar = true;
+      break;
+      case'mod':
+        if(calc1.operando1 == ""){
+          calc1.operando1 = document.getElementById("txtResultado").value;
+          operador = elemento;
+          document.getElementById("txtResultado").value = "";
+        } else {
+          calc1.operando2 = document.getElementById("txtResultado").value;
+          calc1.operando1 = calc1.mod();
+          document.getElementById("txtResultado").value = calc1.operando1;
+        }
+      break;
+
+      case'=':
+        if(operador == '+' || operador == '-' || operador == '/' ||operador =='*'){
+          calc1.operando2 = operador + document.getElementById("txtResultado").value;
+          calc1.operando1 = calc1.somar();
+          document.getElementById("txtResultado").value = calc1.operando1;
+        } else {
+          calc1.operando2 = document.getElementById("txtResultado").value;
+          calc1.operando1 = calc1.mod();
+          document.getElementById("txtResultado").value = calc1.operando1;
+        }
+        if(operador =='div'){
+          operador = "/";
+          calc1.operando2 = operador + document.getElementById("txtResultado").value;
+          operador = elemento;
+          calc1.operando1 = calc1.somar();
+          document.getElementById("txtResultado").value = Math.floor(calc1.operando1)
+        }
+        calc1.operando2 = operador + document.getElementById("txtResultado").value;
+        operador = elemento;
+        calc1.operando1 = calc1.somar();
+        document.getElementById("txtResultado").value = calc1.operando1;
+        limpar = true;
+        operador = "";
+        limpar = true;
+      break;
+    }
+
+  }
+  </script>
+  <title></title>
+</head>
+<body>
+<div class="alignerPrincipal">
+  <table>
+    <tr>
+        <td><input type="text" name="" maxlength="8" style="text-align: right;" id="txtResultado"></td>
+      </tr>
+  </table>
+  <table>
+    <tr>
+      <td><button id="btnBackspace" onclick="backspace()" class="btnsOperacoes"  style="width: 155px;">Backspace</button></td>
+      <td><button id="btnCe" onclick="ce()" class="btnsOperacoes">CE</button></td> 
+      <td><button id="btnC" onclick="c()" class="btnsOperacoes">C</button></td>
+    </tr>
+  </table>
+  <table>  
+    <tr>
+      <td><button id="btn7" onclick="pegar('7')" class="botao">7</button></td>
+      <td><button id="btn8" onclick="pegar('8')" class="botao">8</button></td> 
+      <td><button id="btn9" onclick="pegar('9')" class="botao">9</button></td>
+      <td><button onclick="operacao('/')" class="btnsOperacoes">/</button></td>
+      <td><button id="btnSqrt" onclick="operacao('sqrt')" class="btnsOperacoes">sqrt</button></td>
+    </tr>
+    <tr>
+      <td><button id="btn4" onclick="pegar('4')" class="botao">4</button></td>
+      <td><button id="btn5" onclick="pegar('5')" class="botao">5</button></td> 
+      <td><button id="btn6" onclick="pegar('6')" class="botao">6</button></td>
+      <td><button onclick="operacao('*')" class="btnsOperacoes">*</button></td>
+      <td><button onclick="operacao('mod')" class="btnsOperacoes">mod</button></td>
+    </tr>
+    <tr>
+      <td><button id="btn1" onclick="pegar('1')" class="botao">1</button></td>
+      <td><button id="btn2" onclick="pegar('2')" class="botao">2</button></td> 
+      <td><button id="btn3" onclick="pegar('3')" class="botao">3</button></td>
+      <td><button onclick="operacao('-')" class="btnsOperacoes">-</button></td>
+      <td><button onclick="operacao('div')" class="btnsOperacoes">div</button></td>
+    </tr>
+    <tr>
+      <td><button id="btn0" onclick="pegar('0')" class="botao">0</button></td>
+      <td><button id="btn+/-" class="btnsOperacoes">+/-</button></td> 
+      <td><button id="btn." onclick="pegar('.')" class="botao">.</button></td>
+      <td><button onclick="operacao('+')" class="btnsOperacoes">+</button></td>
+      <td><button id="btn=" onclick="operacao('=')" class="btnsOperacoes">=</button></td>
+  </tr>
+  </table>
+</div>    
+</body>
+</html>
