@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script type="text/javascript">
+		g_cronometro = 0;
+		asdf = /^\d{5}$/
+		function kmMetros(){
+			//Opcao 1
+			//var variavel = document.getElementById('id_txtDistancia').value; //
+
+			//Opcao 2
+			//var variavel = document.getElementsByName('name_txtDistancia')[0].value; //
+
+			//Opcao 3
+			//var variavel = document.form1.id_txtDistancia.value;
+
+			//Opcao 4
+			//var variavel = document.forms[0].id_txtDistancia.value;
+
+			//Opcao 5
+			//var variavel = document.forms[0][0].value;
+
+			//Opcao 6
+			var distanciaKm = parseFloat(document.forms[0]["id_txtDistancia"].value);
+			if(asdf.test(distanciaKm)){
+				alert("fora de formato");
+
+			} else if(isNaN(distanciaKm) == true){
+				document.getElementById('msgErro').innerHTML = "ERRO: Informe um número";
+				//Opcao 1
+				document.getElementById('msgErro').className = "vermelho";
+				//Opcao 2
+				//document.getElementById('msgErro').style.color = "vermelho";
+			} else if(distanciaKm <0){
+				document.getElementById('msgErro').innerHTML = "AVISO: Informe um número maior que zero";
+				document.getElementById('msgErro').style.color = "orange";
+			} else {
+				document.getElementById('msgErro').innerHTML = "";
+				document.getElementById('id_km').innerHTML = distanciaKm;
+				atualizarMetros(0,distanciaKm*1000);
+			}
+		}
+		function atualizarMetros(valorInicial, valorFinal){
+			if(valorInicial <= valorFinal){
+				document.getElementById('id_m').innerHTML = valorInicial;
+				if(valorInicial<200){
+					document.getElementById('id_m').style.color = "red";
+				} else if(valorInicial<600){
+					document.getElementById('id_m').style.color = "blue";
+				} else if(valorInicial<1000){
+					document.getElementById('id_m').style.color = "grey";
+				} else if(valorInicial<1500){
+					document.getElementById('id_m').style.color = "purple";
+				} else if(valorInicial<2000){
+					document.getElementById('id_m').style.color = "black";
+				}
+				g_cronometro = setTimeout(atualizarMetros, 1, valorInicial+1, valorFinal);
+			} else {
+				document.getElementById('msgErro').innerHTML = "Você é muito paciente";
+				clearTimeout(g_cronometro);
+			}
+		}
+		function valueSeletor(){
+			alert(document.getElementById('id_seletor').value);
+		}
+		function marcado(){
+			for(i = 0; i<document.getElementsByName('name_radio').length;i++){
+				if(document.getElementsByName('name_radio')[i].checked == true){
+					value = i;
+				}
+			}
+			alert(value);
+		}
+		function marcadoMultiplo(){
+			value = "";
+			for(i = 0; i<document.getElementsByName('name_checkbox').length;i++){
+				if(document.getElementsByName('name_checkbox')[i].checked == true){
+					value += i;
+				}
+			}
+			alert(value);
+		}
+		function gerarNumero(){
+			document.getElementById('id_numero').innerHTML=Math.ceil(Math.random()*6)-1;
+
+		}
+	</script>
+	<style type="text/css">
+		.vermelho{
+			color: red;
+		}
+		.laranja {
+			color: orange;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<label for="id_txtDistancia">Distancia (KM):</label>
+		<input type="text" name="name_txtDistancia" id="id_txtDistancia" placeholder="10">
+		<input type="button" name="" value="OK" onclick="kmMetros()">
+		<p> <span id="id_km">10</span>km =<span id="id_m">10.000</span>m</p>
+		<p id="msgErro" class=""></p>
+		<select id="id_seletor">
+			<option value="0">selcionar</option>
+			<option value="1">masculino</option>
+			<option value="2">feminino</option>
+		</select>
+		<input type="button" name="" onclick="valueSeletor()">
+		<br>
+		<input type="radio" name="name_radio" value="1">
+		<input type="radio" name="name_radio" value="2">
+		<input type="radio" name="name_radio" value="3">
+		<input type="radio" name="name_radio" value="4">
+		<input type="button" name="" onclick="marcado()">
+		<br>
+		<input type="checkbox" name="name_checkbox" value="1">
+		<input type="checkbox" name="name_checkbox" value="2">
+		<input type="checkbox" name="name_checkbox" value="3">
+		<input type="checkbox" name="name_checkbox" value="4">
+		<input type="button" name="" onclick="marcadoMultiplo()">
+		<br>
+		<span id="id_numero"> </span>
+		<input type="button" name="" onclick="gerarNumero()">
+	</form>
+</body>
+</html>
