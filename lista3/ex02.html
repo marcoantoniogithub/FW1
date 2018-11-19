@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<title>ex02</title>
+	<script type="text/javascript">
+		pessoas = [];
+		pessoa = 0;
+		index_vector = [];
+		candidatos = prompt("Quantas pessoas tem?");
+		for(k = 0; k < candidatos; k++){
+			pessoa = prompt("Nome:");
+			pessoas.push(pessoa);
+		}
+		document.write("<h1>"+"Ordem de Apresentação"+"</h1>")
+		for( k = 0; k < candidatos; k++){
+			do{
+				index = Math.floor(Math.random()*candidatos)
+			} while(index_vector.includes(index) == true)
+			index_vector.push(index)
+		}
+		for(var k = 0; k < candidatos; k++){
+			document.write("<h3>"+k+"º- "+pessoas[index_vector[k]] +"</h3>");
+		}			
+	</script>
+</head>
+<body>
+</body>
+</html>

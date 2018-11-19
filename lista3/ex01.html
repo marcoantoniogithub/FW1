@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<title>ex01</title>
+	<script type="text/javascript">
+		var sorteado = 0;
+		var numeros = [];
+		var index = 0;
+		for(var k = 0; k < 6; k++){
+			do{
+				index = Math.floor(Math.random()*60)
+			} while(numeros.includes(index) == true)
+			numeros.push(index)
+		}
+		for(var k = 0; k < 6; k++){
+			document.write(numeros[k] +" ")
+		}
+	</script>
+</head>
+<body>
+</body>
+</html>
