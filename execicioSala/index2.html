@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>titulo</title>
+    <style>
+    
+    </style>
+    <script>
+        g_cronometro;
+        function play(){
+            if(parseInt(document.getElementById("segundos").innerHTML) >= 10){
+                clearTimeout(g_cronometro);
+            }
+            else{
+            document.getElementById("segundos").innerHTML = parseInt(document.getElementById("segundos").innerHTML)+1;
+            g_cronometro = setTimeout(play,1000);
+            }
+        }
+        function pause(){
+            clearTimeout(g_cronometro);
+        }
+    </script>
+</head>
+<body>
+    <p>Cronometro <span id="segundos">0</span></p>
+    <form>
+       <input type="button" value="START" onclick="play()">
+        <input type="button" value="STOP" onclick="pause()">
+    </form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>titulo</title>
+    <style>
+    
+    </style>
+    <script>
+        var g_cronometro;
+        function play(){
+            document.getElementById("imagem").src = "figura"+g_cronometro+".png";
+            g_cronometro++;
+            if(g_cronometro == 4) g_cronometro = 1;
+            g_cronometro = setTimeout(play,1000);
+        }
+        function pause(){
+            clearTimeout(g_cronometro);
+        }
+    </script>
+</head>
+<body onload="play()">
+    <form>
+      <img id="imagem" src="figura1.png" onmouseover="pause()"alt="" onmouseout="play()"><br>
+    </form>
+</body>
+</html>

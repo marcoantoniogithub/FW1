@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        function Calculadora(){
+            this.operador1 = 0;
+            this.operador2 = 0;
+            this.somar = function(){
+                return this.operador1 + this.operador2;
+            }
+        }
+        var calc1 = new Calculadora();
+        
+        calc1.operador1 = 10;
+        calc1.operador2 = 10;
+        
+        alert(calc1.somar());
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

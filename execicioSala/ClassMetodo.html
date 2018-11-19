@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <script>
+       //Criacao de novas propriedade para a classe String
+       String.prototype.name = "";
+       var n1 = new String();
+       var n2 = new String();
+       n1.name = "Marco";
+       n2.name = "Antonio";
+       alert(n1.name);
+       alert(n2.name);
+       //Criacao de novos metodos para a classe String
+       String.prototype.camelCase = function(palavra) {
+           palavra = palavra.split('');
+           for(var i =0; i<palavra.length; i++){
+               if(i%2 == 0){
+                   palavra[i] = palavra[i].toUpperCase();
+               }
+               else {
+                   palavra[i] = palavra[i].toLowerCase();
+               }
+           }
+           return palavra.join('');
+       }
+       var n1 = new String();
+       alert(n1.camelCase("sistemasparainternet"));
+       
+       String.prototype.imprimir = function(texto){
+           alert("tamanho do texto: " +texto.length);
+       }
+       imprimir 
+    </script>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>

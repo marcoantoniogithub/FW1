@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/restom.css" type="text/css">
+    <style>
+        body {
+            font-family: arial;
+            background-color: rgb(43, 85, 85);
+            margin-top: 10px;
+        }
+        .titulo {
+            text-align: center;
+            font-size: 20px;
+        }
+        label {
+            display: block;
+            margin-top:30px;
+            font-size: 12px;
+        }
+        .formulario {
+            width: 450px;
+            margin:auto;
+            padding: 25px;
+            background-color: white;
+            box-shadow: 1px 2px 2px gray;
+        }
+        input {
+            width: 100%;
+            border:none;
+            border-bottom: 1px #cccccc solid;
+            color: black;
+            font-size: 12px;
+            padding:5px;
+            background: url(imagens/pen.png) no-repeat;
+            background-position: 1000px center;
+            background-size: 20px 20px;
+            transition: all 0.4s;
+        }
+        input:focus {
+            background-position: right center;
+            outline: none;
+        }
+        details {
+            margin-bottom: 20px;
+        }
+        summary{
+            cursor: pointer;
+            outline: none;
+            margin-top: 20px;
+            font-size: 13px;
+            color:cornflowerblue;
+        }
+        select {
+            padding: 5px 10px;
+            color: chocolate;
+            outline: none;
+            border: none;
+            width: 100%;
+        }
+        .linha {
+            display: inline;
+        }
+        input[type="button"], input[type="reset"] {
+            padding:5px;
+            border:none;
+            cursor: pointer;
+        }
+        input[type="button"]:active, input[type="reset"]:active {
+            transform: scale(0.9);
+        }
+        input[type="button"]:focus, input[type="reset"]:focus{
+            background-position: 1000px center;
+        }
+        input[type="button"].cadastrar {
+            background-color: green;
+            color:white;
+        }
+        input[type="button"].cancelar {
+            background-color: rgb(238,110,115);
+            color:white;
+        }
+        input[type="reset"].limpar {
+            background-color: rgb(1,187,212);
+            color:white;
+        }
+    </style>
+    <script>
+        function validar(){
+            var nome = document.getElementById("txtNome").value.trim();
+            var senha = document.getElementById("txtSenha").value.trim();
+            var confSenha = document.getElementById("txtConfSenha").value.trim();
+            var idade = document.getElementById("txtIdade").value;
+
+            if(nome == ""){
+                alert("Nome em branco");
+            }
+            else if(senha == ""){
+                alert("Senha em branco");
+            }
+            else if(confSenha == ""){
+                alert("A confirmação da senha esta em branco");
+            }
+            else if(confirmarSenha(senha,confSenha) != true){
+                alert("As senhas não são correspondente");
+            }
+            else if(validarIdade() != true){
+                alert("idade invalida");
+                document.getElementById("boxInfoPessoais").open = true;
+            }
+        }
+        function confirmarSenha(senha,confSenha){
+            return (senha == confSenha);
+        }
+        function validarIdade(idade){
+            return (idade < 100 && idade > 1); 
+        }
+    </script>
+</head>
+<body>
+    <div class="formulario">
+        <p class="titulo">Cadastro de usuários</p>
+        <form>
+            <label for="txtNome">Nome:</label>
+            <input type="text" maxlength="40" placeholder="Informe o seu nome completo aqui" id="txtNome">
+
+            <label for="txtSenha">Senha:</label>
+            <input type="password" maxlength="8" placeholder="Informe a sua senha (mínimo de 8 caracteres)" id="txtSenha">
+
+            <label for="txtConfSenha">Confirmar senha:</label>
+            <input type="password" maxlength="8" placeholder="Repita a senha novamente" id="txtConfSenha">
+           
+            <details id="boxInfoPessoais">
+                <summary>Informações pessoais:</summary>
+                <div class="linha">
+                    <div class="col-dg-6 col-dm-6">
+                        <label for="txtIdade">Idade:</label>
+                        <input type="number" min="1" max="100" id="txtIdade">
+                    </div>
+                    <div class="col-dg-6 col-dm-6">
+                        <label for="sexo">Sexo:</label>
+                        <select id="sexo">
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                        </select>
+                    </div>
+                </div>
+            </details>
+            
+            <div class="linha">
+                <div class="col-dg-4 col-dm-4">
+                    <input type="button" value="Cadastrar" class="cadastrar" onclick="validar()">
+                </div>
+                <div class="col-dg-4 col-dm-4">
+                    <input type="button" value="Cancelar" class="cancelar">
+                </div>
+                <div class="col-dg-4 col-dm-4">
+                    <input type="reset" value="Limpar" class="limpar">
+                </div>
+            </div>
+    
+        </form>
+    </div>
+
+</body>
+</html>
