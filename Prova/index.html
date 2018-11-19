@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Informe o seu perfil</title>
+    <link rel="stylesheet" type="text/css" href="css/restom.css">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <script src="js/funcoes.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-dg-4 col-dm-2"></div>
+        <div class="col-dg-4 col-dm-8">
+
+            <div class="linha">
+                <h1 class="titulo">Qual o seu perfil?</h1>
+            </div>
+            <form action="">
+                <div class="linha">
+                    <div class="col-dg-12 col-dm-12">
+                        <p class="aviso">OBS: Todas as informações são de preenchimento obrigatório</p>
+                    </div>
+                </div>
+                <div class="linha">
+                    <div class="col-dg-12 col-dm-12">
+                        <label for="txtNome">Nome<span class="aviso">*</span></label>
+                        <input type="text" id="txtNome" required>
+                    </div>
+                </div>
+                <div class="linha">
+                    <div class="col-dg-4 col-dm-4">
+                        <label for="txtIdade">Idade<span class="aviso">*</span></label>
+                        <input id="txtIdade" type="number" min="1" max="130">
+                    </div>
+                    <div class="col-dg-8 col-dm-8">
+                        <label for="txt">Qual o seu passatempo predileto?<span class="aviso">*</span></label>
+                        <select name="listPassatempo" id="listPassatempo">
+                            <option value="0">Selecione</option>
+                            <option value="1">Passear no shopping (fazer compras, etc)</option>
+                            <option value="2">Curtir a natureza (cachoeira, etc)</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="linha">
+                    <div class="col-dg-6 col-dm-6 direita">
+                        <input type="button" value="Ver opções de carro" onclick="lerPerfil()">
+                    </div>
+                    <div class="col-dg-6 col-dm-6">
+                        <input type="reset" value="Limpar">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-dg-4 col-dm-2"></div>
+    </div>
+</body>
+
+</html>

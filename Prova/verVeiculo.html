@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lançamentos 2014</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/restom.css">
+        <link rel="stylesheet" type="text/css" href="css/estilos.css">
+        <script src="js/funcoes.js"></script>
+        <script>
+            var cronos;
+            var g_veiculos = [
+    [{"Fabricante":"Honda", "Nome":"Civic", "Potencia":"150 cv", "Garantia":"3 anos", "Consumo":"9,7 km/l"},
+     {"Fabricante":"Toyota", "Nome":"Corolla", "Potencia":"144 cv", "Garantia":"3 anos", "Consumo":"10,6 km/l"}],
+    [{"Fabricante":"Ford", "Nome":"Troller", "Potencia":"200 cv", "Garantia":"3 anos", "Consumo":"7,7 km/l"},
+     {"Fabricante":"Jepp", "Nome":"Wrangler", "Potencia":"199 cv", "Garantia":"2 anos", "Consumo":"3,1 km/l"}]];
+            var veiculo = 0;
+
+            function carregarOpcoes(){
+                 document.getElementById("nomeCliente").innerHTML = localStorage.getItem("nome");
+                var tipo = parseInt(localStorage.getItem("passatempo"))-1;
+                if(veiculo == 0) veiculo++;
+                else veiculo --;
+                nomeVeiculo = g_veiculos[tipo][veiculo].Nome.toLowerCase();
+                document.getElementById("fotoVeiculo").src = "img/"+nomeVeiculo+".jpg";
+                document.getElementById("fab").innerHTML = g_veiculos[tipo][veiculo].Fabricante;
+                document.getElementById("nom").innerHTML = g_veiculos[tipo][veiculo].Nome;
+                document.getElementById("pot").innerHTML = g_veiculos[tipo][veiculo].Potencia;
+                document.getElementById("gar").innerHTML = g_veiculos[tipo][veiculo].Garantia;
+                document.getElementById("con").innerHTML = g_veiculos[tipo][veiculo].Consumo;
+                
+                cronos = setTimeout(carregarOpcoes, 2000);
+            }
+            function mudarPerfil(){
+                clearTimeout(cronos);
+                window.open('index.html', '_self');
+            }
+        </script>
+    </head>
+    <body onload="carregarOpcoes()">
+        <div class="linha">
+            <h1 class="titulo"><span id="nomeCliente"></span>, veja as opções para o seu perfil:</h1>
+            <div class="col-dg-3 col-dm-3"></div>
+            <div class="col-dg-3 col-dm-3 direita">
+               <img src="img/civic.jpg" id="fotoVeiculo">
+            </div>
+            <div class="col-dg-3 col-dm-3">
+                <p class="caracteristicas"> Características do veículo: </p>
+                <ul>
+                    <li><b>Fabricante:</b><span id="fab"></span></li>
+                    <li><b>Nome:</b><span id="nom"></span></li>
+                    <li><b>Potência do motor:</b><span id="pot"></span></li>
+                    <li><b>Garantia:</b><span id="gar"></span></li>
+                    <li><b>Consumo (cidade):</b><span id="con"></span></li>
+                </ul>
+                <input type="button" value="Mudar perfil" onclick="mudarPerfil()">
+            </div>
+            <div class="col-dg-3 col-dm-3"></div>
+        </div>
+    </body>
+</html>
+           

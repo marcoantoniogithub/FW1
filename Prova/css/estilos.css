@@ -1,0 +1,54 @@
+* {
+   font-family: arial; 
+}
+input[type="button"], input[type="reset"] {
+    background-color: black;
+    width: 170px;
+    border: none;
+    color:white;
+    border-radius: 5px;
+    margin: 5px;
+    padding:10px;
+    transition: all 0.3s;
+}
+input[type="button"]:hover, input[type="reset"]:hover {
+    transform: scale(0.9);
+}
+label {
+    display: block;
+    font-weight: bold;
+    color:darkblue;
+}
+input, select {
+    width: 100%;
+}
+.aviso {
+    color:red;
+    font-size: 14px;
+}
+.titulo {
+    color: black;
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px yellow;
+}
+.centralizar {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+.direita {
+    text-align: right;
+}
+.caracteristicas {
+    color: green;
+    font-weight: bold;
+    font-size: 18px;
+}
+ul {
+    line-height: 2.3em;
+}
+img {
+    border-radius: 10px;
+}

@@ -1,0 +1,28 @@
+// Sugestao de estrutura para utilizar na sua solucao
+
+// Exemplo de uso:
+// g_veiculos[0][0].Fabricante -> exibe "a1"
+// g_veiculos[0][0].Nome       -> exibe "a2"
+// g_veiculos[0][1].Fabricante -> exibe "b1"
+// g_veiculos[1][0].Fabricante -> exibe "c1"
+// g_veiculos[1][1].Potencia   -> exibe "d3"
+
+function lerPerfil() {
+    var nome = document.getElementById("txtNome").value.trim();
+    var idade = document.getElementById("txtIdade").value;
+    var passatempo = document.getElementById("listPassatempo").value;
+    if(nome == "")
+        alert("Nome em branco. Favor preencher!");
+    else if(idade<1 || idade>130)
+        alert("Idade inválida! Favor entrar com uma idade entre 1 e 130!");
+    else if(idade<18)
+        alert("Idade inválida! Você precisa ser maior de idade!");
+    else if(passatempo == "0")
+        alert("Passatempo em branco. Favor insira um passatempo!");
+    else{
+        localStorage.setItem("nome", nome);
+        localStorage.setItem("idade", idade);
+        localStorage.setItem("passatempo", passatempo);
+        window.open('aguarde.html', '_self');
+    }
+}
