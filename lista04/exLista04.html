@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<script>
+function gerarVector(nroLinhas){
+var vetor = new Array(nroLinhas);	
+}
+function gerarMatriz(nroLinhas, nroColunas) { 
+var matriz = new Array(nroLinhas); // Nro de linhas
+for (var i=0; i<nroLinhas; i++)
+matriz[i] = new Array(nroColunas); //Nro de colunas
+return matriz;
+}
+function alimentarVector(vetor) {
+var contador = 0;
+for (var linha=0; linha<vetor.length; linha++)
+vetor[linha] = contador++; 
+}
+function alimentarMatriz(matriz){
+// Alimentar a tabela
+var contador = 1;
+for (var linha=0; linha<matriz.length; linha++)
+for (var coluna=0; coluna<matriz[0].length; coluna++)
+matriz[linha][coluna] = contador++;
+}
+function embaralhar(vetorArray){
+	var novoArray = [];
+
+	while(novoArray.length !== vetorArray.length){
+		var i = Math.floor(Math.random()* vetorArray);
+
+		if(novoArray.indexOf(vetorArray[i])<0){
+			novoArray.push(vetorArray[i]);
+		}
+	}
+	return novoArray;
+}
+function imprimirMatriz(matriz) {
+//Imprimir a tabela
+for (var linha=0; linha<matriz.length; linha++)
+for (var coluna=0; coluna<matriz[0].length; coluna++)
+document.write("<img src=\""+"cartas/carta"+matriz[linha][coluna]+".png"+"\">")
+}
+function getTamJogo() {
+while(1){
+	nroCartas = prompt("Quantas cartinhas vc quer jogar? entre 2 e 27")
+	if(nroCartas <= 27 && nroCartas >=2){
+		break
+	}
+}
+return nroCartas;
+}
+function iniciar() {
+var nroCartas = parseInt(getTamJogo());
+var matriz = gerarMatriz(2,nroCartas);
+alimentarMatriz(matriz);
+matriz[0] = embaralhar(matriz[0]);
+matriz[1] = embaralhar(matriz[1]);
+imprimirMatriz(matriz);
+}
+</script>
+</head>
+<body onload="iniciar()">
+</body>
+</html>
