@@ -3,7 +3,7 @@
 //Exemplo: leftArrowPressed("nave", 5)  // movimento lento
 //Exemplo: leftArrowPressed("nave", 25)  // movimento medio
 //Exemplo: leftArrowPressed("nave", 45)  // movimento rapido
-
+personagem = localStorage.getItem('personagem');
 var direcao = "direita";
 var g_incrementoVelocidade = 0;
 
@@ -13,9 +13,15 @@ function leftArrowPressed(idCampo, velocidade) {
     if (parseInt(element.style.left) < 0) element.style.left = "0px";
     
     if (direcao == "esquerda") {
-        document.getElementById("mario").src = "marioLeft.gif";
-        direcao = "direita";
-        g_incrementoVelocidade = 0;
+        if(personagem == 'personagem1'){
+            document.getElementById("mario").src = "marioLeft.gif";
+            direcao = "direita";
+            g_incrementoVelocidade = 0;
+        }else {
+            document.getElementById("mario").src = "luigiEsquerda_final.gif";
+            direcao = "direita";
+            g_incrementoVelocidade = 0;
+        }
     }
     else if (g_incrementoVelocidade < 5) g_incrementoVelocidade += 0.1;
     }
@@ -27,9 +33,16 @@ function leftArrowPressed(idCampo, velocidade) {
     if (parseInt(element.style.left) > (window.innerWidth-element.clientWidth)) element.style.left = (window.innerWidth-element.clientWidth-1)+"px";
 
     if (direcao == "direita") {
-        document.getElementById("mario").src = "marioRight.gif";
-        direcao = "esquerda";
-        g_incrementoVelocidade = 0;
+        if(personagem == 'personagem1'){
+            document.getElementById("mario").src = "marioRight.gif";
+            direcao = "esquerda";
+            g_incrementoVelocidade = 0;
+        }else {
+            document.getElementById("mario").src = "luigiDireita_final.gif";
+            direcao = "esquerda";
+            g_incrementoVelocidade = 0;
+        }
+        
     }    
     else if (g_incrementoVelocidade < 5) g_incrementoVelocidade += 0.1;
     }

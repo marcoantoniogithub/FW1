@@ -39,21 +39,33 @@
         }
     </style>
     <script>
-        function mudarCor(x){
-            if( x>0 && x<4){
-                for(i = 1; i<4;i++){
-                    if(document.getElementById(i).style.backgroundColor == "rgba(0, 0, 0, 0.5)"){
-                        document.getElementById(i).style.backgroundColor="rgba(230,230,230,0.6)"
-                    }
-                }
-            } else {
-                for(i = 1; i<3;i++){
-                    if(document.getElementById("p"+i).style.backgroundColor == "rgba(0, 0, 0, 0.5)"){
-                        document.getElementById("p"+i).style.backgroundColor="rgba(230,230,230,0.6)"
-                    }
+        function selecionado(x, y){
+            for(i = 1; i<y;i++){
+                if(document.getElementById(x+i).style.backgroundColor == "rgba(0, 0, 0, 0.5)"){
+                    return x+i;
                 }
             }
-            document.getElementById(x).style.backgroundColor = "rgba(0,0,0,0.5)";
+            return undefined;
+        }
+        function mudarCor(x,y,z){
+            var select = selecionado(x, y);
+            if(!(select == undefined)){
+                document.getElementById(select).style.backgroundColor = "rgba(230,230,230,0.4)";
+            }
+            document.getElementById(x+z).style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        }
+        function iniciar(){
+            var dificuldade = selecionado('dificuldade', 4);
+            var personagem = selecionado('personagem', 3);
+            if(dificuldade == undefined){
+               alert("Escolha uma dificuldade");
+            } else if(personagem == undefined){
+                alert("Escolha um personagem");
+            } else {
+                localStorage.setItem('dificuldade', dificuldade);
+                localStorage.setItem('personagem', personagem);
+                window.open('aula.html','_self');
+            }
         }
     </script>
     <meta charset="UTF-8">
@@ -62,16 +74,16 @@
 <body>
    <div class="alinhamento">
         <div class="box">
-            <div onclick="mudarCor('1')" class="buttonDificuldade" id="1">FACIL</div>
-            <div onclick="mudarCor('2')" class="buttonDificuldade" id="2">MEDIO</div>
-            <div onclick="mudarCor('3')" class="buttonDificuldade" id="3">DIFICIL</div>
+            <div onclick="mudarCor('dificuldade', 4, 1)" class="buttonDificuldade" id="dificuldade1">FACIL</div>
+            <div onclick="mudarCor('dificuldade', 4, 2)" class="buttonDificuldade" id="dificuldade2">MEDIO</div>
+            <div onclick="mudarCor('dificuldade', 4, 3)" class="buttonDificuldade" id="dificuldade3">DIFICIL</div>
         </div>
         <div class="box boxPersonagem">
-            <div onclick="mudarCor('p1')" class="personagem" id="p1"><img src="marioRight.gif" style="width: 50%" alt=""></div>
-            <div onclick="mudarCor('p2')" class="personagem" id="p2"><img src="luigiDireita_final.gif" style="width: 40%" alt=""></div>
+            <div onclick="mudarCor('personagem', 3, 1)" class="personagem" id="personagem1"><img src="marioRight.gif" style="width: 50%" alt=""></div>
+            <div onclick="mudarCor('personagem', 3, 2)" class="personagem" id="personagem2"><img src="luigiDireita_final.gif" style="width: 40%" alt=""></div>
         </div>
         <div class="box">
-            <div class="buttonDificuldade">INICIAR JOGO</div>
+            <div onclick="iniciar()" class="buttonDificuldade">INICIAR JOGO</div>
         </div>
    </div>
 </body>

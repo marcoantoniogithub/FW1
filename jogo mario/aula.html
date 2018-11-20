@@ -13,7 +13,8 @@
     <style>
         *{margin:0px;}
         body {
-            background-image: url(fundo1.png);
+            background-size: cover;
+            background-repeat: no-repeat;
         }
         #placar {
             text-align: right;
@@ -31,6 +32,21 @@
         }
         //function iniciarJogo inicia o jogo posicionando o mario e o cogumelo, não tem parametros, EX: iniciarJogo()
         function iniciarJogo(){
+            dificuldade = localStorage.getItem('dificuldade');
+            switch(dificuldade){
+                case 'dificuldade1':
+                    velocidade = 10;
+                    break;
+                case 'dificuldade2':
+                    velocidade = 7;
+                    break;
+                case 'dificuldade3':
+                    velocidade = 5;
+                    break;
+            }
+            if(personagem == 'personagem2'){
+                document.getElementById("mario").src = "luigiDireita_final.gif";
+            }
             //ponto de onde o cogumelo vai começar
             ponto1 = {x:0, y:0}
             //ponto onde o cogumelo vai parar
@@ -55,13 +71,19 @@
             voar(ponto1.y, ponto2.y, m, k);
             planoDefundo();
         }
-        //function voar faz um objeto se movimentar em uma reta, y_inicial = onde o objeto começara y_final= onde ele vai chegar m = angulo que o objeto vai se movimenta k = onde o objeto esta no eixo y da reta, EX:voar(y_inicial, y_final, m, k)
+        //function voar faz um objeto se movimentar em uma reta, y_inicial = onde o objeto começara y_final= onde ele vai chegar m= angulo que o objeto vai se movimenta k= onde o objeto esta no eixo y da reta, EX:voar(y_inicial, y_final, m, k)
         function voar(y_inicial, y_final, m, k) {
             if (y_inicial < y_final) {
                 y_inicial =  y_inicial + 2;
                 x_atual = (y_inicial - k)/m;
                 posicionarObj("cogumelo", x_atual, y_inicial);
-                setTimeout(voar, 1, y_inicial, y_final, m, k);
+                if(detectarColisao("mario", "cogumelo") == true){
+                    var numero = parseInt(document.getElementById("numeroPlacar").innerHTML)+1;
+                    document.getElementById("numeroPlacar").innerHTML = numero;
+                    cairCogumelo();
+                }else {
+                    setTimeout(voar, velocidade, y_inicial, y_final, m, k);
+                }
             } else {
                 cairCogumelo();
             }
@@ -70,27 +92,35 @@
         function getCoefAngular(ponto1, ponto2) {
             return (ponto2.y - ponto1.y)/(ponto2.x -ponto1.x);  
         }
-        //function getCoefLinear calcula o coeficiente linear de uma reta, ponto= ponto inicial, m = coeficiente angular, getCoefLinear(ponto1, m), EX: getCoefLinear(ponto1, m)
+        //function getCoefLinear calcula o coeficiente linear de uma reta, ponto= ponto inicial m= coeficiente angular, EX: getCoefLinear(ponto1, m)
         function getCoefLinear (ponto, m) {
             return ponto.y - m*ponto.x;
         }
-        //function posicionarObj posiciona um objeto na tela , idCampo= id do objeto que deseja posicionar, x= posiciona o objeto em relaçao ao topo da pagina, y= posiciona o objeto em relaçao ao lado direto da tela, EX:posicionarObj("mario",sortearNro(window.innerWidth-document.getElementById("mario").clientWidth), window.innerHeight - document.getElementById("mario").clientHeight)
+        //function posicionarObj posiciona um objeto na tela , idCampo= id do objeto que deseja posicionar x= posiciona o objeto em relaçao ao topo da pagina y= posiciona o objeto em relaçao ao lado direto da tela, EX:posicionarObj("mario",sortearNro(window.innerWidth-document.getElementById("mario").clientWidth), window.innerHeight - document.getElementById("mario").clientHeight)
         function posicionarObj(idCampo, x, y) {
             document.getElementById(idCampo).style.position = "absolute";        
             document.getElementById(idCampo).style.top = y+"px"; 
             document.getElementById(idCampo).style.left = x+"px";     
         }
-        //function planoDefundo colocar uma imagem de background na tela aleatoriamente, não tem, planoDefundo()
+        //function planoDefundo colocar uma imagem de background na tela aleatoriamente, não tem, EX: planoDefundo()
         function planoDefundo(){
             var numero = sortearNro(5)+1;
             document.getElementById('fundo').style.backgroundImage = "url(fundo"+numero+".png)";
         }
+        //function cairCogumelo gera duas nova posição para um objeto a primeira na parte superior da tela e a segunda na parte inferior e chama a função voar(), não tem, EX: cairCogumelo()
         function cairCogumelo(){
             ponto1.x = sortearNro(window.innerWidth-larguraImg);
+            ponto2.x = sortearNro(window.innerWidth-larguraImg);
             ponto2.y = window.innerHeight - document.getElementById("cogumelo").clientHeight;
             m = getCoefAngular(ponto1, ponto2)
             k = getCoefLinear(ponto1, m);
             voar(ponto1.y, ponto2.y, m, k);
+        }
+        //function detectarColisao verifica se um dos objeto se Sobrepos ao outro, objeto1= id do primeiro objeto objeto2= id do segundo objeto, EX: detectarColisao("mario", "cogumelo")
+        function detectarColisao(objeto1, objeto2) {
+            var cogumelo = document.getElementById(objeto2).getBoundingClientRect(); 
+            var mario = document.getElementById(objeto1).getBoundingClientRect(); 
+            return ((cogumelo.bottom >= mario.top) && (((cogumelo.right >= mario.left) && (cogumelo.left <= mario.right)) || ((cogumelo.left >= mario.right) && (cogumelo.right <= mario.left)) || ((cogumelo.left >= mario.left) && (cogumelo.right <= mario.right))))?true:false;
         }
     </script>
 </head>
