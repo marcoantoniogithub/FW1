@@ -115,6 +115,11 @@
             m = getCoefAngular(ponto1, ponto2)
             k = getCoefLinear(ponto1, m);
             voar(ponto1.y, ponto2.y, m, k);
+            if(personagem == 'personagem2'){
+                document.getElementById("audio2").play();
+            }else {
+                document.getElementById("audio").play();
+            }
         }
         //function detectarColisao verifica se um dos objeto se Sobrepos ao outro, objeto1= id do primeiro objeto objeto2= id do segundo objeto, EX: detectarColisao("mario", "cogumelo")
         function detectarColisao(objeto1, objeto2) {
@@ -125,6 +130,12 @@
     </script>
 </head>
 <body id="fundo" onload="iniciarJogo()">
+    <audio id="audio">
+        <source src="1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio2">
+        <source src="2.mp3" type="audio/mpeg">
+    </audio>
     <div id=placar> <span id="numeroPlacar">0</span> <img src="cogumelo.gif" style="width: 2.0%" alt=""></div>
     <img id="cogumelo" src="cogumelo.gif" style="width: 2.2%" alt="">
     <img id="mario" src="marioRight.gif" style="width: 5%" alt="">
